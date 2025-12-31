@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: entyxe
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/entyxe
+    username: entyxe
+    password: entyxe
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
