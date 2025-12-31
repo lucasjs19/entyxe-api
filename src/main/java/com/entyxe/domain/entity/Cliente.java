@@ -23,7 +23,7 @@ public class Cliente {
     private String email;
 
     @Enumerated
-    @Column(nullable = false)
+    @Column(nullable = false, name = "tipo_cliente")
     private TipoCliente tipoCliente;
 
     @Column(nullable = false)
