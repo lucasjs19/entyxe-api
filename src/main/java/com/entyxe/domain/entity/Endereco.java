@@ -1,33 +1,43 @@
 package com.entyxe.domain.entity;
 
-import com.entyxe.domain.enums.TipoCliente;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "clientes")
+@Table(name="enderecos")
 @Getter
 @Setter
-public class Cliente {
+public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
+    private String logradouro;
 
     @Column(nullable = false)
-    private String email;
+    private String numero;
 
-    @Enumerated
-    @Column(nullable = false, name = "tipo_cliente")
-    private TipoCliente tipoCliente;
+    private String complemento;
 
     @Column(nullable = false)
+    private String bairro;
+
+    @Column(nullable = false)
+    private String cidade;
+
+    @Column(nullable = false)
+    private String estado;
+
+    @Column(nullable = false)
+    private String cep;
+
+    @Column(nullable = false)
+    private Boolean principal = false;
+
     private Boolean ativo = true;
 
     @Column(nullable = false, updatable = false)
@@ -35,8 +45,9 @@ public class Cliente {
 
     private LocalDateTime atualizadoEm;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Endereco> enderecos;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
 
     @PrePersist
     void prePersist(){
@@ -47,4 +58,5 @@ public class Cliente {
     void preUpdate(){
         atualizadoEm = LocalDateTime.now();
     }
+
 }

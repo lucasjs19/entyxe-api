@@ -5,6 +5,7 @@ import com.entyxe.dto.request.ClienteRequest;
 import com.entyxe.dto.response.ClienteResponse;
 import com.entyxe.mapper.ClienteMapper;
 import com.entyxe.repository.ClienteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,10 +47,11 @@ public class ClienteService {
     }
 
     //SOFT DELETE
+    @Transactional
     public void deletar(Long id){
         Cliente cliente = clienteRepository.findByIdAndAtivoTrue(id)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         cliente.setAtivo(false);
-        clienteRepository.save(cliente);
+        //clienteRepository.save(cliente);
     }
 }
