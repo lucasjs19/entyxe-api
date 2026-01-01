@@ -1,6 +1,7 @@
 package com.entyxe.dto.request;
 
 import com.entyxe.domain.enums.TipoCliente;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -16,5 +17,6 @@ public class ClienteRequest {
     private TipoCliente tipoCliente;
 
     @NotBlank
+    @Email(message = "E-mail inválido")
     private String email;
 }

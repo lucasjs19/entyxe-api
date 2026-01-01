@@ -10,7 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping(
+        value = "/clientes",
+        produces = "application/json"
+)
 public class ClienteController {
     private final ClienteService clienteService;
 

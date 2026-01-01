@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clientes/{clienteId}/enderecos")
+@RequestMapping(
+        value = "/clientes/{clienteId}/enderecos",
+        produces = "application/json"
+)
 @RequiredArgsConstructor
 public class EnderecoController {
     private final EnderecoService enderecoService;

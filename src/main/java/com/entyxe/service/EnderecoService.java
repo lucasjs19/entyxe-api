@@ -4,6 +4,8 @@ import com.entyxe.domain.entity.Cliente;
 import com.entyxe.domain.entity.Endereco;
 import com.entyxe.dto.request.EnderecoRequest;
 import com.entyxe.dto.response.EnderecoResponse;
+import com.entyxe.exception.ClienteNotFoundException;
+import com.entyxe.exception.EnderecoNotFoundException;
 import com.entyxe.mapper.EnderecoMapper;
 import com.entyxe.repository.ClienteRepository;
 import com.entyxe.repository.EnderecoRepository;
@@ -27,9 +29,8 @@ public class EnderecoService {
 
     @Transactional
     public EnderecoResponse criar(Long clienteId, EnderecoRequest request) {
-        System.out.println("ID DO CLIENTE: " + clienteId);
         Cliente cliente = clienteRepository.findByIdAndAtivoTrue(clienteId)
-                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
+                .orElseThrow(() -> new ClienteNotFoundException(clienteId));
 
         if (Boolean.TRUE.equals(request.getPrincipal())){
             desmarcarEnderecoPrincipal(clienteId);
@@ -42,6 +43,8 @@ public class EnderecoService {
     }
 
     public List<EnderecoResponse> listar(Long clienteId) {
+        clienteRepository.findByIdAndAtivoTrue(clienteId)
+                .orElseThrow(() -> new ClienteNotFoundException(clienteId));
         return enderecoRepository.findByClienteIdAndAtivoTrue(clienteId)
                 .stream()
                 .map(EnderecoMapper::toResponse)
@@ -53,7 +56,7 @@ public class EnderecoService {
 
         Endereco endereco = enderecoRepository
                 .findByIdAndClienteIdAndAtivoTrue(enderecoId, clienteId)
-                .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
+                .orElseThrow(() -> new EnderecoNotFoundException(enderecoId));
 
         endereco.setAtivo(false);
     }

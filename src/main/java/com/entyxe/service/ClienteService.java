@@ -3,6 +3,7 @@ package com.entyxe.service;
 import com.entyxe.domain.entity.Cliente;
 import com.entyxe.dto.request.ClienteRequest;
 import com.entyxe.dto.response.ClienteResponse;
+import com.entyxe.exception.ClienteNotFoundException;
 import com.entyxe.mapper.ClienteMapper;
 import com.entyxe.repository.ClienteRepository;
 import jakarta.transaction.Transactional;
@@ -34,14 +35,14 @@ public class ClienteService {
     //LISTAR POR ID
     public ClienteResponse buscarPorId(Long id){
         Cliente cliente = clienteRepository.findByIdAndAtivoTrue(id)
-                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
+                .orElseThrow(() -> new ClienteNotFoundException(id));
         return ClienteMapper.toResponse(cliente);
     }
 
     //ATUALIZAR
     public ClienteResponse atualizar(Long id, ClienteRequest request){
         Cliente cliente = clienteRepository.findByIdAndAtivoTrue(id)
-                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
+                .orElseThrow(() -> new ClienteNotFoundException(id));
         ClienteMapper.updateEntity(cliente, request);
         return ClienteMapper.toResponse(clienteRepository.save(cliente));
     }
@@ -50,7 +51,7 @@ public class ClienteService {
     @Transactional
     public void deletar(Long id){
         Cliente cliente = clienteRepository.findByIdAndAtivoTrue(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .orElseThrow(() -> new ClienteNotFoundException(id));
         cliente.setAtivo(false);
         //clienteRepository.save(cliente);
     }
