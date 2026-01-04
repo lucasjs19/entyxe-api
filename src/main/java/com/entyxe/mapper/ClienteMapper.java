@@ -9,6 +9,7 @@ public class ClienteMapper {
         Cliente cliente = new Cliente();
         cliente.setNome(request.getNome());
         cliente.setTipoCliente(request.getTipoCliente());
+        cliente.setDocumento(request.getDocumento());
         cliente.setEmail(request.getEmail());
         cliente.setAtivo(true);
         return cliente;
@@ -20,6 +21,7 @@ public class ClienteMapper {
         response.setNome(cliente.getNome());
         response.setEmail(cliente.getEmail());
         response.setTipo(cliente.getTipoCliente());
+        response.setDocumento(cliente.getDocumento());
         response.setCriadoEm(cliente.getCriadoEm());
         return response;
     }

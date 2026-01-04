@@ -19,4 +19,8 @@ public class ClienteRequest {
     @NotBlank
     @Email(message = "E-mail inválido")
     private String email;
+
+    @NotNull
+    @NotBlank
+    private String documento;
 }

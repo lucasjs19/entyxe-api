@@ -12,6 +12,7 @@ public class ClienteResponse {
     private Long id;
     private String nome;
     private TipoCliente tipo;
+    private String documento;
     private String email;
     private LocalDateTime criadoEm;
 }

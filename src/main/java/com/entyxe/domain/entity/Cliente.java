@@ -2,6 +2,7 @@ package com.entyxe.domain.entity;
 
 import com.entyxe.domain.enums.TipoCliente;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,10 @@ public class Cliente {
     @Enumerated
     @Column(nullable = false, name = "tipo_cliente")
     private TipoCliente tipoCliente;
+
+    @Size(min = 11, max = 14)
+    @Column(nullable = false, length = 14, unique = true, updatable = false)
+    private String documento;
 
     @Column(nullable = false)
     private Boolean ativo = true;

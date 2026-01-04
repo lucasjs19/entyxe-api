@@ -12,4 +12,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Page<Cliente> findByAtivoTrue(Pageable pageable);
 
     Optional<Cliente> findByIdAndAtivoTrue(Long aLong);
+
+    Optional<Cliente> findByDocumento(String documento);
 }
